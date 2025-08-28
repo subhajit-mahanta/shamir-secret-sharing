@@ -1,5 +1,3 @@
-
-/* General body and container styles */
 body {
   background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
@@ -14,13 +12,11 @@ body {
   padding: 2.2rem 1.2rem;
 }
 
-/* Headings */
 h1, h2 {
   font-weight: 700;
   letter-spacing: 0.01em;
 }
 
-/* Inputs and textareas */
 textarea, input[type="number"], input[type="text"] {
   font-family: 'Fira Mono', 'Consolas', monospace;
   font-size: 1.08rem;
@@ -35,7 +31,6 @@ textarea:focus, input[type="number"]:focus, input[type="text"]:focus {
   background: #fff;
 }
 
-/* Button styles */
 .input-group .btn {
   border-radius: 8px !important;
   font-weight: 500;
@@ -69,7 +64,6 @@ textarea:focus, input[type="number"]:focus, input[type="text"]:focus {
   background: linear-gradient(90deg, #157347 80%, #2fa97c 100%);
 }
 
-/* Result and alert boxes */
 .result-box {
   background: linear-gradient(90deg, #e9f7ef 60%, #f8fafc 100%);
   border-radius: 10px;
@@ -88,12 +82,10 @@ textarea:focus, input[type="number"]:focus, input[type="text"]:focus {
   background: #f8fafc !important;
 }
 
-/* Form text */
 .form-label, .form-text {
   font-size: 1.04rem;
 }
 
-/* Footer styles for sources section */
 footer {
   background: #181a1b;
   color: #eee;
@@ -116,7 +108,6 @@ footer ul {
   font-size: 1.1em;
 }
 
-/* Responsive styles */
 @media (max-width: 600px) {
   .container {
     max-width: 100vw;
