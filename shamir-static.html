@@ -5,45 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shamir Secret Sharing - Static HTML</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-  <style>
-    body { background: #f8f9fa; }
-    .container { max-width: 700px; margin: 2rem auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 12px #0001; padding: 2rem; }
-    textarea { font-family: monospace; font-size: 1rem; }
-    .result-box { background: #e9f7ef; border-radius: 6px; padding: 1rem; margin-top: 1rem; }
-  </style>
+  <link rel="stylesheet" href="shamir-static.css">
 </head>
 <body>
   <div class="container">
     <h1 class="mb-4">Shamir Secret Sharing Scheme</h1>
-    <div class="alert alert-info" role="alert">
-      <strong>How to use:</strong>
+    <div class="alert alert-primary" role="alert" style="max-width:650px;margin:auto auto 1.5rem auto;">
+      <b>What is this?</b> This tool lets you split a secret (like a password or recovery phrase) into multiple parts. Only a chosen number of those parts (the <b>threshold</b>) are needed to reconstruct the secret.<br><br>
+      <b>How to use:</b>
       <ul class="mb-1">
-        <li><b>To split a secret:</b> Enter your secret, choose the number of parts and the threshold, then click <b>Split Secret</b>. Each part will appear in its own box. Copy and distribute each part to a different person.</li>
-        <li><b>To reconstruct the secret:</b> Collect the required number of parts (at least the threshold). Paste each part (one per line) into the <b>Combine</b> section and click <b>Combine Parts</b> to reveal the original secret.</li>
-        <li><b>Security tip:</b> Never share all parts with one person. The secret can only be reconstructed if the threshold number of parts are combined.</li>
+        <li>Enter your secret (e.g. <code>mySuperSecret123</code>).</li>
+        <li>Set <b>Number of parts</b> to <b>5</b> and <b>Threshold</b> to <b>3</b>.</li>
+        <li>Click <b>Split Secret</b>. Give each part to a different person.</li>
+        <li>To recover the secret, collect any 3 of the 5 parts and paste them (one per line) into the <b>Combine</b> section. The secret will appear automatically.</li>
       </ul>
+      <b>Security tip:</b> Never give all parts to one person. The secret can only be reconstructed if the threshold number of parts are combined.
     </div>
     <div class="mb-5">
       <h2>Split</h2>
       <div class="mb-3">
         <label for="secret" class="form-label">Secret:</label>
         <textarea id="secret" class="form-control" rows="2"></textarea>
+        <div class="form-text">Enter the secret you want to protect (e.g., password, recovery phrase).</div>
       </div>
       <div class="row mb-3">
         <div class="col">
           <label for="numShares" class="form-label">Number of parts:</label>
-          <input type="number" id="numShares" class="form-control" value="5" min="2">
+          <div class="input-group">
+            <button class="btn btn-outline-secondary" type="button" onclick="adjustNumShares(-1)">-</button>
+            <input type="number" id="numShares" class="form-control text-center" value="5" min="2" style="max-width:90px;" oninput="manualNumSharesInput()">
+            <button class="btn btn-outline-secondary" type="button" onclick="adjustNumShares(1)">+</button>
+          </div>
+          <div class="form-text">How many people will get a part? (e.g., 5)</div>
         </div>
         <div class="col">
           <label for="threshold" class="form-label">Threshold to reconstruct:</label>
-          <input type="number" id="threshold" class="form-control" value="3" min="2">
+          <div class="input-group">
+            <button class="btn btn-outline-secondary" type="button" onclick="adjustThreshold(-1)">-</button>
+            <input type="number" id="threshold" class="form-control text-center" value="3" min="2" style="max-width:90px;" oninput="manualThresholdInput()">
+            <button class="btn btn-outline-secondary" type="button" onclick="adjustThreshold(1)">+</button>
+          </div>
+          <div class="form-text">How many parts are needed to recover the secret? (e.g., 3)</div>
         </div>
       </div>
       <button class="btn btn-primary" onclick="splitSecret()">Split Secret</button>
       <div class="mt-3">
         <label class="form-label">Parts:</label>
         <div id="parts-list"></div>
-        <div class="form-text">Each part is in its own box. Click "Copy" to copy and distribute each part to a different person.</div>
+        <div class="form-text">Give each part to a different person. <b>Never give all parts to one person!</b> Click "Copy" to copy each part.</div>
       </div>
     </div>
     <div>
@@ -51,9 +60,10 @@
       <div class="mb-3">
         <label for="combineInput" class="form-label">Enter parts (one per line):</label>
         <textarea id="combineInput" class="form-control" rows="3"></textarea>
+        <div class="form-text">Paste the required number of parts (at least the threshold) here, one per line, to recover the secret.</div>
       </div>
-      <button class="btn btn-success" onclick="combineParts()">Combine Parts</button>
-      <div id="combineResult" class="result-box mt-3" style="display:none;"></div>
+  <div id="combineResult" class="result-box mt-3" style="display:none;"></div>
+  <div class="form-text mt-2">If the correct number of valid parts are entered, your secret will appear above.</div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/secrets.js-grempe@1.1.0/secrets.min.js"></script>
