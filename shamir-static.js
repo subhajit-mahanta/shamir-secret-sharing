@@ -1,3 +1,42 @@
+function adjustNumShares(delta) {
+  var numInput = document.getElementById('numShares');
+  var thresholdInput = document.getElementById('threshold');
+  var num = parseInt(numInput.value);
+  var threshold = parseInt(thresholdInput.value);
+  num = Math.max(2, num + delta);
+  if (num < threshold) threshold = num;
+  numInput.value = num;
+  thresholdInput.value = threshold;
+}
+
+function adjustThreshold(delta) {
+  var numInput = document.getElementById('numShares');
+  var thresholdInput = document.getElementById('threshold');
+  var num = parseInt(numInput.value);
+  var threshold = parseInt(thresholdInput.value);
+  threshold = Math.max(2, Math.min(num, threshold + delta));
+  thresholdInput.value = threshold;
+}
+
+function manualNumSharesInput() {
+  var numInput = document.getElementById('numShares');
+  var thresholdInput = document.getElementById('threshold');
+  var num = parseInt(numInput.value) || 2;
+  var threshold = parseInt(thresholdInput.value) || 2;
+  num = Math.max(2, num);
+  if (num < threshold) threshold = num;
+  numInput.value = num;
+  thresholdInput.value = threshold;
+}
+
+function manualThresholdInput() {
+  var numInput = document.getElementById('numShares');
+  var thresholdInput = document.getElementById('threshold');
+  var num = parseInt(numInput.value) || 2;
+  var threshold = parseInt(thresholdInput.value) || 2;
+  threshold = Math.max(2, Math.min(num, threshold));
+  thresholdInput.value = threshold;
+}
 function splitSecret() {
   var secret = document.getElementById('secret').value;
   var numShares = parseInt(document.getElementById('numShares').value);
@@ -33,11 +72,15 @@ function splitSecret() {
   });
 }
 
-function combineParts() {
+function updateCombineResult() {
   var input = document.getElementById('combineInput').value.trim();
   var shares = input.split('\n').map(s => s.trim()).filter(Boolean);
   var resultBox = document.getElementById('combineResult');
-  if (shares.length < 2) { resultBox.style.display = 'block'; resultBox.textContent = 'Enter at least 2 parts.'; return; }
+  if (shares.length < 2) {
+    resultBox.style.display = 'block';
+    resultBox.textContent = 'Enter at least 2 parts.';
+    return;
+  }
   try {
     var hex = secrets.combine(shares);
     var secret = secrets.hex2str(hex);
@@ -48,3 +91,5 @@ function combineParts() {
     resultBox.textContent = 'Invalid or insufficient parts.';
   }
 }
+
+

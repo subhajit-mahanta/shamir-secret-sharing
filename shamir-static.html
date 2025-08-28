@@ -62,8 +62,9 @@
         <textarea id="combineInput" class="form-control" rows="3"></textarea>
         <div class="form-text">Paste the required number of parts (at least the threshold) here, one per line, to recover the secret.</div>
       </div>
+  <button class="btn btn-success" onclick="updateCombineResult()">Combine Parts</button>
   <div id="combineResult" class="result-box mt-3" style="display:none;"></div>
-  <div class="form-text mt-2">If the correct number of valid parts are entered, your secret will appear above.</div>
+  <div class="form-text mt-2">If the correct number of valid parts are entered and you click Combine Parts, your secret will appear above.</div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/secrets.js-grempe@1.1.0/secrets.min.js"></script>
